@@ -7,20 +7,21 @@ import java.security.GeneralSecurityException;
 public class Main {
     public static void main(String[] args) {
         try {
-            // Generate key and save
+            // Step 1: Generate AES Key and save it to a file
             SecretKey key = AESUtil.generateKey();
             AESUtil.saveKeyToFile(key, "secret.key");
 
-            // Load key from file
+            // Step 2: Load the key from file
             SecretKey loadedKey = AESUtil.loadKeyFromFile("secret.key");
 
-            // Encrypt file
-            FileEncryptor.encryptFile("sample.txt", "sample_encrypted.vault", loadedKey);
+            // Step 3: Encrypt the input file
+            FileEncryptor.encryptFile("C:\\Users\\sange\\secure-file-vault\\sample.txt", "encrypted.vault", loadedKey);
+            System.out.println("✅ File encrypted successfully to 'encrypted.vault'");
 
-            // Decrypt file
-            FileDecryptor.decryptFile("sample_encrypted.vault", "sample_decrypted.txt", loadedKey);
+            // Step 4: Decrypt the file
+            FileDecryptor.decryptFile("encrypted.vault", "decrypted.txt", loadedKey);
+            System.out.println("✅ File decrypted successfully to 'decrypted.txt'");
 
-            System.out.println("Encryption and Decryption done!");
         } catch (IOException | GeneralSecurityException e) {
             e.printStackTrace();
         }
